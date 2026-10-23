@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "pr": 173897,
+  "issue": 162620,
+  "head": "2225860a76badca0c0fd2ea94bbf7e08fb76ac77",
+  "generatedAt": "2026-10-23T05:01:30.602Z",
+  "result": "pass",
+  "environment": {
+    "runtime": "real openclaw Gateway from built dist/index.js",
+    "gatewayCommand": "node dist/index.js gateway --port <loopback-port> --bind loopback --allow-unconfigured",
+    "browser": {
+      "executablePath": "/usr/bin/google-chrome",
+      "version": "138.0.7204.157"
+    },
+    "node": "v24.22.1",
+    "os": "Linux",
+    "model": {
+      "kind": "local OpenAI Responses SSE fixture",
+      "endpoint": "http://127.0.0.1:36301/v1",
+      "modelRef": "pending-handoff-proof/proof-model"
+    },
+    "controlUi": "built dist/control-ui served through the Gateway behind a loopback trusted-proxy origin"
+  },
+  "flow": {
+    "purpose": "Establish a completed transcript baseline, then submit the target turn so the target assistant answer is newly announced.",
+    "turns": [
+      {
+        "requestCount": 1,
+        "prompt": "Seed a completed turn.",
+        "reply": "Seed reply before locator proof.",
+        "liveText": "Seed reply before locator proof.",
+        "liveRegion": {
+          "role": "status",
+          "ariaLive": "polite",
+          "ariaAtomic": "true",
+          "text": "Seed reply before locator proof.",
+          "outerHTML": "<span class=\"chat-transcript-announcement sr-only\" role=\"status\" aria-atomic=\"true\" aria-live=\"polite\">Seed reply before locator proof.</span>"
+        }
+      },
+      {
+        "requestCount": 2,
+        "prompt": "Reply with the pending-handoff proof sentence.",
+        "reply": "Landed the PR. All focused checks passed.",
+        "liveText": "Landed the PR. All focused checks passed.",
+        "liveRegion": {
+          "role": "status",
+          "ariaLive": "polite",
+          "ariaAtomic": "true",
+          "text": "Landed the PR. All focused checks passed.",
+          "outerHTML": "<span class=\"chat-transcript-announcement sr-only\" role=\"status\" aria-atomic=\"true\" aria-live=\"polite\">Landed the PR. All focused checks passed.</span>"
+        }
+      }
+    ]
+  },
+  "duplicateLocatorEvidence": {
+    "before": {
+      "locator": "page.getByText(finalText, { exact: true })",
+      "count": 2,
+      "waitForPassed": false,
+      "strictModeViolation": "locator.waitFor: Error: strict mode violation: getByText('Landed the PR. All focused checks passed.', { exact: true }) resolved to 2 elements:\n    1) <span role=\"status\" aria-atomic=\"true\" aria-live=\"polite\" class=\"chat-transcript-announcement sr-only\">Landed the PR. All focused checks passed.</span> aka getByRole('status').filter({ hasText: 'Landed the PR. All focused' })\n    2) <p>…</p> aka getByRole('paragraph').filter({ hasText: 'Landed the PR. All focused' })\n\nCall log:\n\u001b[2m  - waiting for getByText('Landed the PR. All focused checks passed.', { exact: true }) to be visible\u001b[22m",
+      "competingElements": [
+        {
+          "tag": "SPAN",
+          "role": "status",
+          "ariaLive": "polite",
+          "classes": "chat-transcript-announcement sr-only",
+          "text": "Landed the PR. All focused checks passed.",
+          "insideBubble": false,
+          "insideAnnouncement": true,
+          "outerHTML": "<span class=\"chat-transcript-announcement sr-only\" role=\"status\" aria-atomic=\"true\" aria-live=\"polite\">Landed the PR. All focused checks passed.</span>"
+        },
+        {
+          "tag": "P",
+          "role": null,
+          "ariaLive": null,
+          "classes": "",
+          "text": "Landed the PR. All focused checks passed.",
+          "insideBubble": true,
+          "insideAnnouncement": false,
+          "outerHTML": "<p><!----><!---->Landed the PR. All focused checks passed.<!----><!----></p>"
+        }
+      ]
+    },
+    "after": {
+      "locator": "page.locator(\".chat-bubble\").getByText(finalText, { exact: true })",
+      "count": 1,
+      "waitForPassed": true
+    }
+  },
+  "visibleBubble": {
+    "text": "Landed the PR. All focused checks passed.",
+    "outerHTML": "<div class=\"chat-bubble chat-bubble--first streaming\" data-message-id=\"stream-working:[&quot;agent:main:pending-handoff-live-proof&quot;,&quot;820bd7c6-2812-499e-8733-6f6334885fa7&quot;]\" data-message-text=\"Landed the PR. All focused checks passed.\"><!----><div class=\"chat-text\" dir=\"ltr\"><!----><!----><!----><p><!----><!---->Landed the PR. All focused checks passed.<!----><!----></p><!----><!---->\n<!----><!----><!----></div><!----><!----><!----></div>"
+  },
+  "providerRequests": [
+    {
+      "sha256": "b3ed3ad79a9f06d9701a5531fb849165d2ece7dd35409621bf771192d0e6d94d",
+      "bytes": 58961,
+      "containsPrompt": false,
+      "containsSeedPrompt": true,
+      "turn": "seed",
+      "reply": "Seed reply before locator proof."
+    },
+    {
+      "sha256": "f61be9b1673612b9ade445490edd363c489e244ad84e0c2d87e49f1b1610100a",
+      "bytes": 59399,
+      "containsPrompt": true,
+      "containsSeedPrompt": true,
+      "turn": "target",
+      "reply": "Landed the PR. All focused checks passed."
+    }
+  ],
+  "checksums": {
+    "distIndex": "7fbb8f36a1744fd971d18c23ee48937e84d8ea5ffe6fb0957627063ef4d44f6a",
+    "pendingHandoffTest": "c53ef80c454142e3d93f0cc9ce20e483688d8a0a356c532b9054616cfc953062"
+  },
+  "e2e": {
+    "command": "node scripts/run-vitest.mjs run --config test/vitest/vitest.ui-e2e.config.ts --configLoader runner ui/src/e2e/chat-send-pending-handoff.e2e.test.ts",
+    "testFile": "ui/src/e2e/chat-send-pending-handoff.e2e.test.ts",
+    "files": 1,
+    "tests": 5,
+    "passed": 5,
+    "failed": 0,
+    "durationSeconds": 73.52,
+    "result": "pass"
+  },
+  "artifacts": {
+    "fullPageScreenshot": "control-ui-pending-handoff.png",
+    "assistantBubbleScreenshot": "assistant-bubble.png"
+  },
+  "redaction": {
+    "gatewayLogsIncluded": false,
+    "credentialsIncluded": false,
+    "externalEndpointsIncluded": false
+  }
+}
