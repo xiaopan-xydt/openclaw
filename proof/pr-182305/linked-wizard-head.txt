@@ -1,7 +1,7 @@
-Script started on 2026-10-24 15:53:28+08:00
+spawn env PATH=<node-bin>:/usr/local/bin:/usr/bin:/bin OPENCLAW_STATE_DIR=<isolated-state> OPENCLAW_CONFIG_PATH=<isolated-state>/openclaw.json OPENCLAW_GATEWAY_URL=wss://example.invalid node openclaw.mjs channels add whatsapp
 │
 ◇  
-OpenClaw 2026.10.6 (61aa3e2) — No $999 stand required.
+OpenClaw 2026.10.6 (66b704e) — Hot reload for config, cold sweat for deploys.
 Gateway target wss://example.invalid is remote. Local credentials and configuration do not reach that Gateway.
 ┌  Channel setup
 │
@@ -136,8 +136,9 @@ Gateway target wss://example.invalid is remote. Local credentials and configurat
 │  Account: default                                                       │
 │  From the phone you plan to use, send a WhatsApp message to the linked  │
 │  account: "Hello".                                                      │
-│  If that phone is already in allowFrom, it proceeds directly.           │
-│  Otherwise, approve the DM access request, then resend the message.     │
+│  If that phone is already allowlisted or previously approved, it        │
+│  proceeds directly. Otherwise, send the message, and approve the DM     │
+│  access request if one appears before resending.                        │
 │  Docs: whatsapp                                                         │
 │                                                                         │
 ├─────────────────────────────────────────────────────────────────────────╯
@@ -168,4 +169,3 @@ Gateway target wss://example.invalid is remote. Local credentials and configurat
 │  Skip for now
 │
 └  Channels updated.
-Script done on 2026-10-24 15:54:04+08:00
