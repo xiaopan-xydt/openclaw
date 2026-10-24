@@ -1,7 +1,8 @@
-Script started on 2026-10-24 15:52:47+08:00
+spawn env PATH=<node-bin>:/usr/local/bin:/usr/bin:/bin OPENCLAW_STATE_DIR=<isolated-state> OPENCLAW_CONFIG_PATH=<isolated-state>/openclaw.json OPENCLAW_GATEWAY_URL=wss://example.invalid node openclaw.mjs channels add whatsapp
 │
 ◇  
-OpenClaw 2026.10.6 (61aa3e2) — I have a SOUL.md and I'm not afraid to use it.
+OpenClaw 2026.10.6 (66b704e)
+You configured four subagents; I found 120. We're calling it initiative.
 Gateway target wss://example.invalid is remote. Local credentials and configuration do not reach that Gateway.
 ┌  Channel setup
 │
@@ -71,15 +72,15 @@ Gateway target wss://example.invalid is remote. Local credentials and configurat
 ◇  WhatsApp account
 │  default (primary)
 │
-◇  WhatsApp linking ────────────────────────────────────────────────────────╮
-│                                                                           │
-│  Scan the QR with WhatsApp on your phone.                                 │
-│  Credentials are stored under                                             │
-│  /tmp/openclaw-182305-head-unlinked.9UQbks/credentials/whatsapp/default/  │
-│  for future runs.                                                         │
-│  Docs: whatsapp                                                           │
-│                                                                           │
-├───────────────────────────────────────────────────────────────────────────╯
+◇  WhatsApp linking ─────────────────────────────────────────────────────────╮
+│                                                                            │
+│  Scan the QR with WhatsApp on your phone.                                  │
+│  Credentials are stored under                                              │
+│  <isolated-state>/credentials/whatsapp/default/  │
+│  for future runs.                                                          │
+│  Docs: whatsapp                                                            │
+│                                                                            │
+├────────────────────────────────────────────────────────────────────────────╯
 │
 ◆  Link WhatsApp now (QR)?
 │  ● Yes / ○ No
@@ -156,4 +157,6 @@ Gateway target wss://example.invalid is remote. Local credentials and configurat
 ├───────────────────────────────────────────────────────────────────────╯
 │
 └  Channels updated.
-Script done on 2026-10-24 15:53:25+08:00
+send: spawn id exp6 not open
+    while executing
+"send -- "\r""
