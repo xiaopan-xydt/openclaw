@@ -1,0 +1,7 @@
+GATEWAY_READY=ws://127.0.0.1:<redacted-port>
+GATEWAY_STARTUP_SETTLED
+MONITOR_DIAG linkWritten=true watchWritten=true catalogs=2 catalogsWithProbe=2 watched=1
+TRANSCRIPT_ACCESS=Error: EACCES: permission denied, access '<isolated-home>/.claude/projects/-proof-workspace/pr182118-session.jsonl'
+SCHEDULED_WAIT_DONE
+MONITOR_AFTER watched=1
+MONITOR_MARKERS=[{"offset":0}]
