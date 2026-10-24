@@ -1,0 +1,159 @@
+Script started on 2026-10-24 15:52:47+08:00
+│
+◇  
+OpenClaw 2026.10.6 (61aa3e2) — I have a SOUL.md and I'm not afraid to use it.
+Gateway target wss://example.invalid is remote. Local credentials and configuration do not reach that Gateway.
+┌  Channel setup
+│
+◇  How channels work ──────────────────────────────────────────────────────╮
+│                                                                          │
+│  Inbound DM safety defaults to pairing: unknown senders get a pairing    │
+│  code first.                                                             │
+│  Approve with: openclaw pairing approve <channel> <code>                 │
+│  Open/public DMs require dmPolicy="open" plus allowFrom=["*"].           │
+│  For multi-user DMs, isolate sessions with: openclaw config set          │
+│  session.dmScope "per-channel-peer" (or "per-account-channel-peer" for   │
+│  multi-account channels).                                                │
+│  Docs: channels/pairing                                                  │
+│                                                                          │
+│  Feishu: 飞书/Lark enterprise messaging with doc/wiki/drive tools.       │
+│  Google Chat: Google Workspace Chat app with HTTP webhook.               │
+│  Nostr: Decentralized protocol; encrypted DMs via NIP-04.                │
+│  Buzz: Connect OpenClaw agents to Buzz team rooms.                       │
+│  Microsoft Teams: Teams SDK; enterprise support.                         │
+│  Mattermost: self-hosted Slack-style chat; install the plugin to         │
+│  enable.                                                                 │
+│  Nextcloud Talk: Self-hosted chat via Nextcloud Talk webhook bots.       │
+│  Matrix: open protocol; install the plugin to enable.                    │
+│  Raft: Raft CLI wake bridge for human and agent collaboration.           │
+│  A2A: Connect external agents through the A2A v1.0 protocol.             │
+│  LINE: LINE Messaging API webhook bot.                                   │
+│  Zalo: Vietnam-focused messaging platform with Bot API.                  │
+│  ClickClack: self-hosted chat via first-class ClickClack bot tokens.     │
+│  X (Twitter): Allowlisted mentions with thread context and public        │
+│  replies.                                                                │
+│  Zalo Personal: Zalo personal account via QR code login.                 │
+│  SMS: Twilio-backed SMS/MMS with inbound webhooks and outbound replies.  │
+│  Synology Chat: Connect your Synology NAS Chat to OpenClaw with full     │
+│  agent capabilities.                                                     │
+│  Tlon: decentralized messaging on Urbit; install the plugin to enable.   │
+│  Discord: very well supported right now.                                 │
+│  iMessage: Local iMessage/SMS through the imsg bridge, including         │
+│  private API message actions when enabled.                               │
+│  IRC: classic IRC networks with DM/channel routing and pairing           │
+│  controls.                                                               │
+│  Reef: Guarded end-to-end encrypted claw messaging.                      │
+│  Signal: signal-cli linked device with additional setup for the local    │
+│  REST bridge.                                                            │
+│  Slack: supported (Socket Mode).                                         │
+│  Telegram: simplest way to get started — register a bot with @BotFather  │
+│  and get going.                                                          │
+│  Twitch: Twitch chat integration                                         │
+│  WhatsApp: works with your own number; recommend a separate phone +      │
+│  eSIM.                                                                   │
+│  WeCom: Enterprise messaging and documents, scheduling, task tools.      │
+│  Weixin: Personal WeChat messaging via QR-code login.                    │
+│  Zalo ClawBot: Personal Zalo assistant bot via QR-code login —           │
+│  owner-bound, no setup.                                                  │
+│  Yuanbao: Tencent Yuanbao AI assistant conversation channel.             │
+│  AgentMail: Durable, allowlisted, reply-only email conversations         │
+│  through AgentMail.                                                      │
+│  QQ Bot: connect to QQ via official QQ Bot API with group chat and       │
+│  direct message support.                                                 │
+│                                                                          │
+├──────────────────────────────────────────────────────────────────────────╯
+│
+◆  WhatsApp account
+│  ● default (primary)
+│  ○ Add a new account
+│  ← back  ↑/↓ option
+└
+◇  WhatsApp account
+│  default (primary)
+│
+◇  WhatsApp linking ────────────────────────────────────────────────────────╮
+│                                                                           │
+│  Scan the QR with WhatsApp on your phone.                                 │
+│  Credentials are stored under                                             │
+│  /tmp/openclaw-182305-head-unlinked.9UQbks/credentials/whatsapp/default/  │
+│  for future runs.                                                         │
+│  Docs: whatsapp                                                           │
+│                                                                           │
+├───────────────────────────────────────────────────────────────────────────╯
+│
+◆  Link WhatsApp now (QR)?
+│  ● Yes / ○ No
+│  ← back  ↑/↓ option
+└
+◇  Link WhatsApp now (QR)?
+│  No
+│
+◇  WhatsApp ──────────────────────────────────────────────╮
+│                                                         │
+│  Run `openclaw channels login` later to link WhatsApp.  │
+│                                                         │
+├─────────────────────────────────────────────────────────╯
+│
+◇  WhatsApp DM access ────────────────────────────────────────────────╮
+│                                                                     │
+│  WhatsApp direct chats are gated by `channels.whatsapp.dmPolicy` +  │
+│  `channels.whatsapp.allowFrom`.                                     │
+│  - pairing (default): unknown senders get a pairing code; owner     │
+│    approves                                                         │
+│  - allowlist: unknown senders are blocked                           │
+│  - open: public inbound DMs (requires allowFrom to include "*")     │
+│  - disabled: ignore WhatsApp DMs                                    │
+│                                                                     │
+│  Current: dmPolicy=pairing, allowFrom=unset                         │
+│  Docs: whatsapp                                                     │
+│                                                                     │
+├─────────────────────────────────────────────────────────────────────╯
+│
+◆  WhatsApp phone setup
+│  ● This is my personal phone number
+│  ○ Separate phone just for OpenClaw
+│  ← back  ↑/↓ option
+└
+│  ○ This is my personal phone number
+│  ● Separate phone just for OpenClaw
+│  ← back  ↑/↓ option
+└
+◇  WhatsApp phone setup
+│  Separate phone just for OpenClaw
+│
+◆  WhatsApp DM policy
+│  ● Pairing (recommended)
+│  ○ Allowlist only (block unknown senders)
+│  ○ Open (public inbound DMs)
+│  ○ Disabled (ignore WhatsApp DMs)
+│  ← back  ↑/↓ option
+└
+◇  WhatsApp DM policy
+│  Pairing (recommended)
+│
+◆  WhatsApp allowFrom (optional pre-allowlist)
+│  ● Unset allowFrom (default)
+│  ○ Set allowFrom to specific numbers
+│  ← back  ↑/↓ option
+└
+◇  WhatsApp allowFrom (optional pre-allowlist)
+│  Unset allowFrom (default)
+│
+◇  WhatsApp next steps ───────────────────────────────────────────────────╮
+│                                                                         │
+│  Account: default                                                       │
+│  Finish linking this account first, then send a message from the phone  │
+│  you plan to use.                                                       │
+│  Docs: whatsapp                                                         │
+│                                                                         │
+├─────────────────────────────────────────────────────────────────────────╯
+│
+◇  Selected channels ───────────────────────────────────────────────────╮
+│                                                                       │
+│  WhatsApp — works with your own number; recommend a separate phone +  │
+│  eSIM. Docs: whatsapp                                                 │
+│                                                                       │
+├───────────────────────────────────────────────────────────────────────╯
+│
+└  Channels updated.
+Script done on 2026-10-24 15:53:25+08:00
