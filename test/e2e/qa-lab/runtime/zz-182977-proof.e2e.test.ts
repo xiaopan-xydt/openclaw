@@ -179,7 +179,14 @@ it(
           return;
         }
         providerRequests += 1;
-        if (providerRequests === 1) {
+        const parsed = JSON.parse(body) as unknown;
+        const serialized = JSON.stringify(parsed);
+        if (serialized.includes("Generate a concise session title")) {
+          writeStart(response, "proof-title", "Proof title");
+          writeFinish(response, "proof-title", "Proof title", " title");
+          return;
+        }
+        if (!serialized.includes("Also beta")) {
           writeStart(response, "proof-first", FIRST_TEXT);
           firstStreaming();
           await firstRelease;
@@ -188,15 +195,8 @@ it(
           }
           return;
         }
-        const parsed = JSON.parse(body) as unknown;
-        const serialized = JSON.stringify(parsed);
         writeStart(response, "proof-steer", STEER_TEXT);
-        writeFinish(
-          response,
-          "proof-steer",
-          serialized.includes("Also beta") ? STEER_TEXT : FIRST_TEXT,
-          STEER_TEXT.slice(6),
-        );
+        writeFinish(response, "proof-steer", STEER_TEXT, STEER_TEXT.slice(6));
       },
       (error, response) => {
         response.writeHead(500).end(error instanceof Error ? error.message : String(error));

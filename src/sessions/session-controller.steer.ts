@@ -1,4 +1,5 @@
 /** One controller-owned steer of a reserved input into its captured execution owner. */
+import fs from "node:fs";
 import { bindWorkerToolPreparation } from "../agents/harness/host-private-capabilities.js";
 import type {
   ReplyBackendQueueMessageResult,
@@ -22,6 +23,7 @@ import {
 import {
   getSessionControllerEntryForOperation,
   isCurrentSessionControllerOperation,
+  sessionControllers,
 } from "./session-controller.state.js";
 
 type SessionControllerSteerParams = {
@@ -48,8 +50,37 @@ export type SessionControllerSteerResult =
 export async function beginSessionControllerSteer(
   params: SessionControllerSteerParams,
 ): Promise<ReplyMessageInjectionAttempt | undefined> {
+  fs.appendFileSync(
+    "/tmp/182977-diag.log",
+    `ENTER ${JSON.stringify({
+      phase: params.input.phase,
+      injectionAttempted: params.input.injectionAttempted,
+      hasInjection: Boolean(params.input.injection),
+      hasClaim: Boolean(params.input.claim),
+      withdrawalHolds: params.input.withdrawalHolds,
+      retirementRequested: params.input.retirementRequested,
+      cancellationRetired: params.input.custody.cancellationRetired,
+      aborted: params.input.abortSignal.aborted,
+    })}\n`,
+  );
   const injection = beginSessionControllerSourceInjection(params.input);
   if (!(await injection.admit())) {
+    fs.appendFileSync("/tmp/182977-diag.log", "ADMIT_REJECTED\n");
+    process.stderr.write(
+      `PROOF_ADMIT_REJECTED ${JSON.stringify({
+        phase: params.input.phase,
+        injectionAttempted: params.input.injectionAttempted,
+        hasInjection: Boolean(params.input.injection),
+        hasClaim: Boolean(params.input.claim),
+        withdrawalHolds: params.input.withdrawalHolds,
+        retirementRequested: params.input.retirementRequested,
+        cancellationRetired: params.input.custody.cancellationRetired,
+        aborted: params.input.abortSignal.aborted,
+        ownerMailboxMatches: params.input.mailbox.owner.mailbox === params.input.mailbox,
+        controllerMatches:
+          sessionControllers.get(params.input.mailbox.owner.id) === params.input.mailbox.owner,
+      })}\n`,
+    );
     return undefined;
   }
   let attempt: ReplyMessageInjectionAttempt;
@@ -104,8 +135,10 @@ export async function beginSessionControllerSteer(
         ...(preparation?.prepareMessage ? { prepareMessage: preparation.prepareMessage } : {}),
       },
     });
+    fs.appendFileSync("/tmp/182977-diag.log", "ATTEMPT_CREATED\n");
   } catch (error) {
     injection.finish(false);
+    fs.appendFileSync("/tmp/182977-diag.log", `ATTEMPT_THREW ${JSON.stringify(String(error))}\n`);
     throw error;
   }
   // Failed acknowledgement does not settle accepted native work.

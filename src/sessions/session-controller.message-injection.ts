@@ -1,3 +1,4 @@
+import fs from "node:fs";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import {
   bindReplyQueueInputAdapter,
@@ -598,6 +599,10 @@ async function beginPreparedReplyMessageInjectionTarget(
       assertCurrent: assertFailureSourceCurrent,
       accepted: queueAccepted,
     }) ?? { status: "rejected", reason: "runtime_rejected", errorMessage: String(error) };
+    fs.appendFileSync(
+      "/tmp/182977-diag.log",
+      `QUEUE_FAILED ${JSON.stringify({ queueAccepted, error: String(error), outcome })}\n`,
+    );
     settleAcceptance(outcome.status === "indeterminate");
     return outcome;
   };
@@ -609,6 +614,7 @@ async function beginPreparedReplyMessageInjectionTarget(
     outcome = resolved.injection
       .queueMessage(preparedText, runtimeQueueOptions)
       .then(async (result): Promise<ReplyMessageInjectionOutcome> => {
+        fs.appendFileSync("/tmp/182977-diag.log", `QUEUE_RESOLVED ${JSON.stringify(result)}\n`);
         queueAccepted = true;
         recordParticipant();
         settleAcceptance(true);
