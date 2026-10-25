@@ -275,6 +275,9 @@ it(
             idempotencyKey: randomUUID(),
             queueMode: "steer",
           })) as { runId?: string; status?: string };
+          // The steering RPC acknowledges before detached injection runs. Keep the
+          // provider turn open so the native turn cannot terminate first.
+          await delay(2_000);
           releaseFirst();
           const completed = await waitForRun(gateway, first.runId, 120_000, 125_000);
           await delay(500);
